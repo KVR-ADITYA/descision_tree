@@ -7,7 +7,7 @@ def _entropy(values):
 	probs = counts[np.nonzero(counts)] / float(len(values))
 	return - np.sum(probs * np.log(probs))
 
-def _information_gain(feature, y):
+def _information_gain(feature_range, feature, y):
 	feature_set_indices = np.nonzero(feature)[1]
 	feature_not_set_indices = [i for i in feature_range if i not in feature_set_indices]
 	entropy_x_set = _entropy(y[feature_set_indices])
@@ -19,14 +19,14 @@ def _information_gain(feature, y):
 def gain_metrics(data):
 	# data['f20'].values[data['f20'].values > 0] = 1
 	nparray = data.to_numpy()
-	feature_size = nparray.shape[1]
+	feature_size = nparray.shape[0]
 	# print(feature_size)
 	feature_range = range(0, feature_size)
 	entropy_before = _entropy(data['f20'])
 	print(entropy_before)
 	information_gain_scores = []
-	for feature in data.T:
-		information_gain_scores.append(_information_gain(feature, data['f20']))
+	for feature in nparray.T:
+		information_gain_scores.append(_information_gain(feature_range, feature, data['f20']))
 	print(information_gain_scores)    
 	return information_gain_scores, []
 
