@@ -2,22 +2,20 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-def _entropy(values):
-	counts = np.bincount(values)
-	probs = counts[np.nonzero(counts)] / float(len(values))
-	return - np.sum(probs * np.log(probs))
-
-def _information_gain(feature_range, feature, y):
-	feature_set_indices = np.nonzero(feature)[1]
-	feature_not_set_indices = [i for i in feature_range if i not in feature_set_indices]
-	entropy_x_set = _entropy(y[feature_set_indices])
-	entropy_x_not_set = _entropy(y[feature_not_set_indices])
-
-	return entropy_before - (((len(feature_set_indices) / float(feature_size)) * entropy_x_set)
-							 + ((len(feature_not_set_indices) / float(feature_size)) * entropy_x_not_set))	
-
 def gain_metrics(data):
-	# data['f20'].values[data['f20'].values > 0] = 1
+	def _entropy(values):
+		counts = np.bincount(values)
+		probs = counts[np.nonzero(counts)] / float(len(values))
+		return - np.sum(probs * np.log(probs))
+
+	def _information_gain(feature, y):
+		feature_set_indices = np.nonzero(feature)[0]
+		feature_not_set_indices = [i for i in feature_range if i not in feature_set_indices]
+		entropy_x_set = _entropy(y[feature_set_indices])
+		entropy_x_not_set = _entropy(y[feature_not_set_indices])
+		return entropy_before - (((len(feature_set_indices) / float(feature_size)) * entropy_x_set)
+								 + ((len(feature_not_set_indices) / float(feature_size)) * entropy_x_not_set))	
+
 	nparray = data.to_numpy()
 	feature_size = nparray.shape[0]
 	# print(feature_size)
@@ -26,7 +24,7 @@ def gain_metrics(data):
 	print(entropy_before)
 	information_gain_scores = []
 	for feature in nparray.T:
-		information_gain_scores.append(_information_gain(feature_range, feature, data['f20']))
+		information_gain_scores.append(_information_gain(feature, data['f20']))
 	print(information_gain_scores)    
 	return information_gain_scores, []
 
@@ -98,7 +96,7 @@ if __name__ == '__main__':
 	for i in range(1, 2):
 		gain_ratio, info_gain, gini_split = calculate_metrics(read_data(str(i)))
 		print(gain_ratio)
-		print(blah)
+		print("blah")
 		print(info_gain)
 		print(gini_split)	
 	# for i in range(1, 57):
