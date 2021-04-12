@@ -25,7 +25,8 @@ def gain_metrics(data):
 	information_gain_scores = []
 	for feature in nparray.T:
 		information_gain_scores.append(_information_gain(feature, data['f20']))
-	print(information_gain_scores)    
+	print(information_gain_scores)
+	
 	return information_gain_scores, []
 
 
