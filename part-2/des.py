@@ -185,16 +185,19 @@ def decision_tree(train, test, max_depth, min_size):
 # Test CART on Bank Note dataset
 seed(1)
 # load and prepare data
-filename = '1.csv'
-dataset = load_csv(filename)
-# convert string attributes to integers
-for i in range(len(dataset[0])):
-    str_column_to_float(dataset, i)
-# evaluate algorithm
-n_folds = 5
-max_depth = 5
-min_size = 10
-scores = evaluate_algorithm(dataset, decision_tree,
-                            n_folds, max_depth, min_size)
-print('Scores: %s' % scores)
-print('Mean Accuracy: %.3f%%' % (sum(scores)/float(len(scores))))
+for k in range(31,32):
+    filename = f'../data/{k}.csv'
+    dataset = load_csv(filename)
+    # convert string attributes to integers
+    for i in range(len(dataset[0])):
+        str_column_to_float(dataset, i)
+    # evaluate algorithm
+    n_folds = 5
+    max_depth = 5
+    min_size = 10
+    scores = evaluate_algorithm(dataset, decision_tree,
+                                n_folds, max_depth, min_size)
+    print("DATASET "+str(k))
+    print('Scores: %s' % scores)
+    print('Mean Accuracy: %.3f%%' % (sum(scores)/float(len(scores))))
+    print("______________________________________________________________")
