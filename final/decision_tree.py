@@ -5,6 +5,11 @@ from final_metrics import *
 from read_data import *
 
 
+class Node:
+    def __init__(self):
+        pass
+
+
 def decsion_tree(file_name):
     df, data_arr = read_data(file_name, clf=True, norm=True)
 

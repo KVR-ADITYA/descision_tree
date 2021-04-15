@@ -185,14 +185,14 @@ def decision_tree(train, test, max_depth, min_size):
 # Test CART on Bank Note dataset
 seed(1)
 # load and prepare data
-for k in range(31,32):
-    filename = f'../data/{k}.csv'
+for k in range(1, 57):
+    filename = f'../new_data/n{k}.csv'
     dataset = load_csv(filename)
     # convert string attributes to integers
     for i in range(len(dataset[0])):
         str_column_to_float(dataset, i)
     # evaluate algorithm
-    n_folds = 5
+    n_folds = 10
     max_depth = 5
     min_size = 10
     scores = evaluate_algorithm(dataset, decision_tree,
